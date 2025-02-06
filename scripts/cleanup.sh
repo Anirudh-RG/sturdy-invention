@@ -19,3 +19,6 @@ kill_process_on_port 5173  # Frontend
 kill_process_on_port 3000  # Backend
 
 echo "All services stopped successfully."
+
+# Ensure script exits cleanly
+exit 0
