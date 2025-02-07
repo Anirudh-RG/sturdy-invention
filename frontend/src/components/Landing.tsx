@@ -1,5 +1,5 @@
 import { useEffect,useRef,useState } from "react"
-import { Room } from "./Room";
+import { Room } from "./copyOfRoom";
 
 export const Landing = () =>{
     const [name,setName] = useState("");
@@ -38,11 +38,15 @@ export const Landing = () =>{
                     autoPlay
                     ref={videoRef}
                 />
-                <input type="text" onChange={(e) =>{
+                <input className="border-2 bg-slate-400 text-black" type="text" onChange={(e) =>{
                     setName(e.target.value);
                 }}>
                 </input>
-                <button onClick={()=>{
+                <button 
+                className="m-2 p-2 border-2 border-to-black bg-blue-400 text-white text-xl rounded-2xl
+                hover:bg-blue-800 border-slate-800 
+                " 
+                onClick={()=>{
                     setJoined(true);    
                 }}>Join Room</button>
             </div>

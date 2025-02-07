@@ -171,17 +171,40 @@ export const Room = ({
     }, [localVideoRef, localVideoTrack]);
 
     return (
-        <div className="flex justify-between">
-            <div className="flex gap-1 border-4 border-gray-400">
-            <h2 className="text-2xl text-slate-600">Hi {name}</h2>
-            <video autoPlay className="w-[480px] h-[480px]" ref={localVideoRef} />
-            {lobby ? "Waiting to connect you to someone" : null}
-            <video autoPlay className="w-[480px] h-[480px]" ref={remoteVideoRef} />
+        <div className="flex flex-col md:flex-row h-screen bg-gray-100">
+          <div className="flex-1 p-4">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Welcome, {name}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="relative">
+                <video autoPlay ref={localVideoRef} className="w-full h-auto rounded-lg shadow-lg" />
+                <div className="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded">{name}</div>
+              </div>
+              <div className="relative">
+                <video
+                  autoPlay
+                  ref={remoteVideoRef}
+                  className={`w-full h-auto rounded-lg shadow-lg ${lobby ? "opacity-0" : "opacity-100"}`}
+                />
+                {lobby && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gray-200 rounded-lg">
+                    <p className="text-gray-600">Waiting to connect you to someone...</p>
+                  </div>
+                )}
+                <div
+                  className={`absolute bottom-2 left-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded ${
+                    lobby ? "hidden" : "block"
+                  }`}
+                >
+                  ???
+                </div>
+              </div>
             </div>
-            <div className="text-slate-600 bg-slate-100 item-center  flex items-end">
-                <ChatBox name={name}/>
-            </div>
+          </div>
+          <div className="w-full md:w-1/3 p-4">
+            <ChatBox name={name} />
+          </div>
         </div>
-
-    );
+      );
+      
+    
 };
