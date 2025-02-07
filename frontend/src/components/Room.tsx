@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Socket, io } from "socket.io-client";
-import ChatBox from "./ChatBox";
 
 const URL = "http://localhost:3000";
 
@@ -171,17 +170,11 @@ export const Room = ({
     }, [localVideoRef, localVideoTrack]);
 
     return (
-        <div className="flex justify-between">
-            <div className="flex gap-1 border-4 border-gray-400">
-            <h2 className="text-2xl text-slate-600">Hi {name}</h2>
-            <video autoPlay className="w-[480px] h-[480px]" ref={localVideoRef} />
+        <div>
+            Hi {name}
+            <video autoPlay width={400} height={400} ref={localVideoRef} />
             {lobby ? "Waiting to connect you to someone" : null}
-            <video autoPlay className="w-[480px] h-[480px]" ref={remoteVideoRef} />
-            </div>
-            <div className="text-slate-600 bg-slate-100 item-center  flex items-end">
-                <ChatBox name={name}/>
-            </div>
+            <video autoPlay width={400} height={400} ref={remoteVideoRef} />
         </div>
-
     );
 };

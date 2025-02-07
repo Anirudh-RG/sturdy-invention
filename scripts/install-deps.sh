@@ -1,5 +1,5 @@
 set -e
-
+echo "PROJECT-STAGING-BRANCH"
 echo "installing in root"
 npm i
 
