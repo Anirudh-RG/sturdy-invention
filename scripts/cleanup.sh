@@ -4,14 +4,16 @@ echo "Stopping frontend and backend services..."
 
 kill_process_on_port() {
     local port=$1
-    local pid=$(netstat -ano | grep ":$port" | awk '{print $5}')
+    echo "Checking for processes on port $port..."
+    
+    # Use PowerShell to find and kill the process in one go
+    powershell.exe -Command "
+        Get-NetTCPConnection -LocalPort $port -ErrorAction SilentlyContinue |
+        Select-Object -ExpandProperty OwningProcess |
+        ForEach-Object { Stop-Process -Id \$_ -Force -ErrorAction SilentlyContinue }
+    "
 
-    if [ ! -z "$pid" ]; then
-        echo "Stopping process on port $port (PID: $pid)..."
-        taskkill //F //PID $pid
-    else
-        echo "No active process found on port $port."
-    fi
+    echo "Processes on port $port stopped."
 }
 
 kill_process_on_port 5173  # Frontend
